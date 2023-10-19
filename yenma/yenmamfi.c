@@ -53,6 +53,7 @@
 
 #define YENMA_MILTER_ACTION_FLAGS (SMFIF_ADDHDRS | SMFIF_CHGHDRS)
 
+// restore YenmaSession and set log prefix again.
 #define RESTORE_YENMASESSION(smfictx, psession) \
     do { \
         psession = (YenmaSession *) smfi_getpriv(smfictx); \
@@ -60,6 +61,7 @@
             LogError("smfi_getpriv failed"); \
             return SMFIS_TEMPFAIL; \
         } \
+        LogHandler_setPrefix((psession)->qid); \
     } while (0)
 
 static int
